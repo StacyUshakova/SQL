@@ -1,7 +1,6 @@
 USE semimar_4;
 
-/* 1. Подсчитать общее количество лайков, которые получили пользователи
-младше 12 лет. */
+-- Подсчитать общее количество лайков, которые получили пользователиm младше 12 лет
 
 SELECT COUNT(*) AS total_likes
 FROM likes
@@ -15,20 +14,21 @@ FROM likes
 JOIN profiles ON profiles.user_id = likes.user_id
 WHERE TIMESTAMPDIFF(YEAR, profiles.birthday, curdate()) < 12;
 
-/* 2. Определить кто больше поставил лайков (всего): мужчины или женщины. */ 
+-- Определить кто больше поставил лайков (всего): мужчины или женщины
+
 SELECT profiles.gender, COUNT(*)
 FROM likes
 JOIN profiles ON profiles.user_id = likes.user_id
 GROUP BY profiles.gender;
 
-/* 3. Вывести всех пользователей, которые не отправляли сообщения. */
+-- Вывести всех пользователей, которые не отправляли сообщения
+
 SELECT *
 FROM users
 WHERE id NOT IN(SELECT DISTINCT from_user_id FROM messages);
 
-/* 4. Пусть задан некоторый пользователь. Из всех друзей этого пользователя найдите человека, который больше всех написал
-ему сообщений. */
--- Возьмем пользователя с id 1 и найдем его друзей 
+-- 4. Пусть задан некоторый пользователь. Из всех друзей этого пользователя найдите человека, который больше всех написал
+ему сообщений.
 
 SELECT  
 	CONCAT(firstname, ' ', lastname) AS users_name, 
